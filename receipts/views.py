@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from receipts.models import Receipt
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def receipt_list(request):
-    list = Receipt.objects.all()
+    list = Receipt.objects.filter(purchaser=request.user)
     context = {
         "list": list,
     }
