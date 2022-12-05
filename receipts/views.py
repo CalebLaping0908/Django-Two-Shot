@@ -4,6 +4,7 @@ from receipts.forms import ReceiptForm, CategoryForm, AccountForm
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def receipt_list(request):
     if request.user.is_authenticated:
         list = Receipt.objects.filter(purchaser=request.user)

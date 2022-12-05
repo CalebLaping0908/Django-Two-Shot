@@ -32,7 +32,7 @@ def user_logout(request):
 
     if request.user is not None:
         logout(request)
-        return redirect("home")
+        return redirect("login")
 
 
 def user_signup(request):
