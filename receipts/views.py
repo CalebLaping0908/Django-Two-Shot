@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from receipts.models import Receipt
+from django.shortcuts import render, redirect
+from receipts.models import Receipt, Account, ExpenseCategory
 from receipts.forms import ReceiptForm
 from django.contrib.auth.decorators import login_required
 
@@ -13,6 +13,28 @@ def receipt_list(request):
         "list": list,
     }
     return render(request, "receipts/home.html", context)
+
+
+def category_list(request):
+    if request.user.is_authenticated:
+        list = ExpenseCategory.objects.filter(owner=request.user)
+    else:
+        list = ExpenseCategory.objects.none
+    context = {
+        "list": list,
+    }
+    return render(request, "receipts/category.html", context)
+
+
+def account_list(request):
+    if request.user.is_authenticated:
+        list = Account.objects.filter(owner=request.user)
+    else:
+        list = Account.objects.none
+    context = {
+        "list": list,
+    }
+    return render(request, "receipts/account.html", context)
 
 
 @login_required
